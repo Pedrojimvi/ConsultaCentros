@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ProyectoA_PMDM_T2_PedroJiménez</string>
+    <string name="latitud">Latitud</string>
+    <string name="longitud">Longitud</string>
+    <string name="distancia_en_metros">Distancia en metros</string>
+    <string name="seleccionar_filtro">Seleccionar Filtro</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="error_campo_vacio">Este campo no puede estar vacío</string>
+    <string name="buscador_de">Buscador de ... de La Comunidad de Madrid</string>
+    <string name="consultar_listado">Consultar Listado</string>
 </resources>
