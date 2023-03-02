@@ -8,8 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.proyectoa_pmdm_t2_pedrojimenez.Fragments.FiltroDialogFragment;
+import com.proyectoa_pmdm_t2_pedrojimenez.Fragments.OnXListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnXListener {
     Button btnSel;
     Button btnCon;
     TextView txtLat;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     Double lat = 0.0;
     Double lon = 0.0;
-    String dis = "";
+    int dis = 0;
 
 
     @Override
@@ -50,13 +51,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onAceptarXListener(Double lat, Double lon, String dis) {
+    public void onAceptarXListener(Double lat, Double lon, int dis) {
         this.lat = lat;
         this.lon = lon;
         this.dis = dis;
 
-        txtLat.setText("Latitud: " + lat);
-        txtLon.setText("Longitud: " + lon);
-        txtDis.setText("Distancia: " + dis);
+        if (lat != 0.0) {
+            txtLat.setText("Latitud: " + lat);
+        }
+        if (lon != 0.0) {
+            txtLon.setText("Longitud: " + lon);
+        }
+        if (dis != 0.0) {
+            txtDis.setText("Distancia: " + dis + " metros");
+        }
     }
 }
