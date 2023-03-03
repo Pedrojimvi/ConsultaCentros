@@ -7,6 +7,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="aceptar">Aceptar</string>
     <string name="error_campo_vacio">Este campo no puede estar vacío</string>
-    <string name="buscador_de">Buscador de ... de La Comunidad de Madrid</string>
+    <string name="buscador_de">Buscador de … de La Comunidad de Madrid</string>
     <string name="consultar_listado">Consultar Listado</string>
+    <string name="numero_invalido">El número introducido sobrepasa los límites</string>
 </resources>

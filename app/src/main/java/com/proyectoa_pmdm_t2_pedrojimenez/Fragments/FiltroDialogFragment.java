@@ -3,12 +3,14 @@ package com.proyectoa_pmdm_t2_pedrojimenez.Fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -30,7 +32,6 @@ public class FiltroDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_filtro, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCancelable(false);
 
         //Creación del título del diálogo con el color correspondiente y negrita
         SpannableString titulo = new SpannableString(getResources().getString(R.string.seleccionar_filtro));
@@ -54,30 +55,45 @@ public class FiltroDialogFragment extends DialogFragment {
             edTxtDis.setText(String.valueOf(dis));
         }
 
-        builder.setPositiveButton(R.string.aceptar, (dialog, which) -> {
+        builder.setPositiveButton(R.string.aceptar, null);
+        builder.setNegativeButton(R.string.cancelar, (dialog, i) -> dialog.dismiss());
+
+        AlertDialog ad = builder.create();
+        ad.setCanceledOnTouchOutside(false);
+
+        ad.setOnShowListener(dialog -> ad.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+            boolean isValido = true;
+
             //Se comprueba que los valores introducidos son correctos
             if (edTxtLat.getText().toString().isBlank()) {
-                Snackbar.make(v, getResources().getString(R.string.error_campo_vacio), Snackbar.LENGTH_LONG).show();
+                edTxtLat.setError(getResources().getString(R.string.error_campo_vacio));
+                isValido = false;
             }
-            else if (edTxtLon.getText().toString().isBlank()) {
-                Snackbar.make(v, getResources().getString(R.string.error_campo_vacio), Snackbar.LENGTH_LONG).show();
+            if (edTxtLon.getText().toString().isBlank()) {
+                edTxtLon.setError(getResources().getString(R.string.error_campo_vacio));
+                isValido = false;
             }
-            else if (edTxtDis.getText().toString().isBlank()) {
-                Snackbar.make(v, getResources().getString(R.string.error_campo_vacio), Snackbar.LENGTH_LONG).show();
+            if (edTxtDis.getText().toString().isBlank()) {
+                edTxtDis.setError(getResources().getString(R.string.error_campo_vacio));
+                isValido = false;
             }
-            else {
+            if(isValido) {
                 //Si lo son se guardan los valores en las variables estáticas para que se muestren cuando se vuelva a abrir el diálogo
                 lat = Double.parseDouble(edTxtLat.getText().toString());
                 lon = Double.parseDouble(edTxtLon.getText().toString());
-                dis = Integer.parseInt(edTxtDis.getText().toString());
+                try {
+                    dis = Integer.parseInt(edTxtDis.getText().toString());
 
-                listener.onAceptarXListener(lat, lon, dis);
+                    listener.onAceptarXListener(lat, lon, dis);
+                    ad.dismiss();
+                }
+                catch (NumberFormatException e) {
+                    edTxtDis.setError(getResources().getString(R.string.numero_invalido));
+                }
             }
-        });
+        }));
 
-        builder.setNegativeButton(R.string.cancelar, (dialog, which) -> dialog.cancel());
-
-        return builder.create();
+        return ad;
     }
 
     @Override
