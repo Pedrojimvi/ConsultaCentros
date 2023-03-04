@@ -13,4 +13,5 @@
     <string name="lat">Latitud: </string>
     <string name="lon">Longitud: </string>
     <string name="dis">Distancia: %d metros</string>
+    <string name="error_datos">Error, no se han obtenido los datos</string>
 </resources>

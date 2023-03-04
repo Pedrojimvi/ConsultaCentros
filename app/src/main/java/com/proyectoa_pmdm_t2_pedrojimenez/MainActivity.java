@@ -1,6 +1,8 @@
 package com.proyectoa_pmdm_t2_pedrojimenez;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +11,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.proyectoa_pmdm_t2_pedrojimenez.fragments.FiltroDialogFragment;
+import com.proyectoa_pmdm_t2_pedrojimenez.fragments.ListadoFragment;
 import com.proyectoa_pmdm_t2_pedrojimenez.fragments.OnXListener;
+import com.proyectoa_pmdm_t2_pedrojimenez.retrofitUtils.APIRestService;
+import com.proyectoa_pmdm_t2_pedrojimenez.retrofitUtils.RetrofitClient;
+
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements OnXListener {
     Button btnSel;
@@ -18,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     TextView txtLon;
     TextView txtDis;
     FrameLayout frLay;
+    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
         txtDis = findViewById(R.id.txtDis);
         frLay = findViewById(R.id.frLay);
 
+        fm = getSupportFragmentManager();
+
+        iniRf();
+
         btnSel.setOnClickListener(v -> {
             txtLat.setText("");
             txtLon.setText("");
@@ -42,8 +54,17 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
         });
 
         btnCon.setOnClickListener(v -> {
-
+            ListadoFragment listFrag = new ListadoFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frLay, listFrag);
+            ft.addToBackStack(null);
+            ft.commit();
         });
+    }
+
+    private void iniRf() {
+        Retrofit rf = RetrofitClient.getClient(APIRestService.BASE_URL);
+        APIRestService apiRestServ = rf.create(APIRestService.class);
     }
 
     @Override
@@ -53,14 +74,8 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     }
 
     public void onAceptarXListener(Double lat, Double lon, int dis) {
-        if (lat != 0.0) {
-            txtLat.setText(getString(R.string.lat) + lat);
-        }
-        if (lon != 0.0) {
-            txtLon.setText(getString(R.string.lon) + lon);
-        }
-        if (dis != 0.0) {
-            txtDis.setText(String.format(getString(R.string.dis), dis));
-        }
+        txtLat.setText(getString(R.string.lat) + lat);
+        txtLon.setText(getString(R.string.lon) + lon);
+        txtDis.setText(String.format(getString(R.string.dis), dis));
     }
 }
