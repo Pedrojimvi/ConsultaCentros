@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CentroRes {
+public class Centro {
     @SerializedName("@context")
     @Expose
     private Context context;
