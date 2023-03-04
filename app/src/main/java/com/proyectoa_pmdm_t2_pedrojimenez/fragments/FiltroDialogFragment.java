@@ -66,27 +66,48 @@ public class FiltroDialogFragment extends DialogFragment {
                 edTxtLat.setError(getResources().getString(R.string.error_campo_vacio));
                 isValido = false;
             }
+            else {
+                try {
+                    lat = Double.parseDouble(edTxtLat.getText().toString());
+                }
+                catch (NumberFormatException e) {
+                    edTxtLat.setError(getResources().getString(R.string.punto_introducido));
+                    isValido = false;
+                }
+            }
+
             if (edTxtLon.getText().toString().isBlank()) {
                 edTxtLon.setError(getResources().getString(R.string.error_campo_vacio));
                 isValido = false;
             }
+            else {
+                try {
+                    lon = Double.parseDouble(edTxtLon.getText().toString());
+                }
+                catch (NumberFormatException e) {
+                    edTxtLon.setError(getResources().getString(R.string.punto_introducido));
+                    isValido = false;
+                }
+            }
+
             if (edTxtDis.getText().toString().isBlank()) {
                 edTxtDis.setError(getResources().getString(R.string.error_campo_vacio));
                 isValido = false;
             }
-            if(isValido) {
-                //Si lo son se guardan los valores en las variables estáticas para que se muestren cuando se vuelva a abrir el diálogo
-                lat = Double.parseDouble(edTxtLat.getText().toString());
-                lon = Double.parseDouble(edTxtLon.getText().toString());
+            else {
                 try {
                     dis = Integer.parseInt(edTxtDis.getText().toString());
-
-                    listener.onAceptarXListener(lat, lon, dis);
-                    ad.dismiss();
                 }
                 catch (NumberFormatException e) {
                     edTxtDis.setError(getResources().getString(R.string.numero_invalido));
+                    isValido = false;
                 }
+            }
+
+            if (isValido) {
+                //Si lo son se pasan los valores al método del listener
+                listener.onAceptarXListener(lat, lon, dis);
+                ad.dismiss();
             }
         }));
 
