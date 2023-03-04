@@ -1,21 +1,18 @@
-package com.proyectoa_pmdm_t2_pedrojimenez.Fragments;
+package com.proyectoa_pmdm_t2_pedrojimenez.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.proyectoa_pmdm_t2_pedrojimenez.R;
 
 public class FiltroDialogFragment extends DialogFragment {

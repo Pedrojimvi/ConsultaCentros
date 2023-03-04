@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.proyectoa_pmdm_t2_pedrojimenez.Fragments.FiltroDialogFragment;
-import com.proyectoa_pmdm_t2_pedrojimenez.Fragments.OnXListener;
+import com.proyectoa_pmdm_t2_pedrojimenez.fragments.FiltroDialogFragment;
+import com.proyectoa_pmdm_t2_pedrojimenez.fragments.OnXListener;
 
 public class MainActivity extends AppCompatActivity implements OnXListener {
     Button btnSel;
@@ -16,11 +17,7 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     TextView txtLat;
     TextView txtLon;
     TextView txtDis;
-
-    Double lat = 0.0;
-    Double lon = 0.0;
-    int dis = 0;
-
+    FrameLayout frLay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +29,16 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
         txtLat = findViewById(R.id.txtLat);
         txtLon = findViewById(R.id.txtLon);
         txtDis = findViewById(R.id.txtDis);
+        frLay = findViewById(R.id.frLay);
 
         btnSel.setOnClickListener(v -> {
+            txtLat.setText("");
+            txtLon.setText("");
+            txtDis.setText("");
+            frLay.removeAllViews();
+
             FiltroDialogFragment dialog = new FiltroDialogFragment();
             dialog.show(getSupportFragmentManager(), "FiltroDialogFragment");
-
-            onAceptarXListener(lat, lon, dis);
         });
 
         btnCon.setOnClickListener(v -> {
@@ -52,18 +53,14 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     }
 
     public void onAceptarXListener(Double lat, Double lon, int dis) {
-        this.lat = lat;
-        this.lon = lon;
-        this.dis = dis;
-
         if (lat != 0.0) {
-            txtLat.setText("Latitud: " + lat);
+            txtLat.setText(getString(R.string.lat) + lat);
         }
         if (lon != 0.0) {
-            txtLon.setText("Longitud: " + lon);
+            txtLon.setText(getString(R.string.lon) + lon);
         }
         if (dis != 0.0) {
-            txtDis.setText("Distancia: " + dis + " metros");
+            txtDis.setText(String.format(getString(R.string.dis), dis));
         }
     }
 }

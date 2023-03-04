@@ -10,4 +10,7 @@
     <string name="buscador_de">Buscador de … de La Comunidad de Madrid</string>
     <string name="consultar_listado">Consultar Listado</string>
     <string name="numero_invalido">El número introducido sobrepasa los límites</string>
+    <string name="lat">Latitud: </string>
+    <string name="lon">Longitud: </string>
+    <string name="dis">Distancia: %d metros</string>
 </resources>
