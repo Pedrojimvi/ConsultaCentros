@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.proyectoa_pmdm_t2_pedrojimenez.MainActivity;
 import com.proyectoa_pmdm_t2_pedrojimenez.R;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitData.Centro;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitData.Graph;
@@ -24,7 +25,7 @@ import retrofit2.Response;
 public class ListadoFragment extends Fragment {
     private RecyclerView rcV;
     private CentroAdapter adapter;
-    private ArrayList<Graph> centrosList = new ArrayList<>();
+    private ArrayList<Graph> centrosList;
     LinearLayoutManager lLM;
 
     public ListadoFragment() {
@@ -52,8 +53,14 @@ public class ListadoFragment extends Fragment {
         return v;
     }
 
-    public void actualizarListado(APIRestService ars){
-        Call<Centro> call = ars.getData();
+    public void actualizarListado(APIRestService ars, double lat, double lon, int dist, boolean filt) {
+        Call<Centro> call;
+        if (filt) {
+            call = ars.getDataFilter(lat, lon, dist);
+        }
+        else
+            call = ars.getData();
+
         call.enqueue(new Callback<Centro>() {
             @Override
             public void onResponse(Call<Centro> call, Response<Centro> response) {
@@ -62,6 +69,8 @@ public class ListadoFragment extends Fragment {
                     Centro centrosRes = response.body();
                     centrosList.addAll(centrosRes.getGraph());
                     cargarRV(centrosList);
+                    if (centrosList.size() == 0)
+                        Toast.makeText(getActivity(), R.string.error_no_datos, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(getActivity(), R.string.error_datos, Toast.LENGTH_SHORT).show();

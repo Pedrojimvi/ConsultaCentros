@@ -8,7 +8,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIRestService {
-    public static final String BASE_URL = "https://datos.madrid.es/egob/catalogo/";
+    String BASE_URL = "https://datos.madrid.es/egob/catalogo/";
 
     @GET("203166-0-universidades-educacion.json")
     Call<Centro> getDataFilter(@Query("latitud") double lat,
@@ -19,5 +19,5 @@ public interface APIRestService {
     Call<Centro> getData();
 
     @GET("tipo/entidadesyorganismos/{id_url}")
-    Call<Centro> getData(@Path("id_url") String url);
+    Call<Centro> getInfo(@Path("id_url") String url);
 }

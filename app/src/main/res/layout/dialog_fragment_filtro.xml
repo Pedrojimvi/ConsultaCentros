@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/latitud"
-        android:inputType="numberDecimal"
+        android:inputType="numberSigned|numberDecimal"
         android:backgroundTint="@color/red_white"
         android:textStyle="bold"
         android:textColorHint="@color/red_white"

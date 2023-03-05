@@ -10,12 +10,13 @@
     <string name="buscador_de">Buscador de … de La Comunidad de Madrid</string>
     <string name="consultar_listado">Consultar Listado</string>
     <string name="numero_invalido">El número introducido sobrepasa los límites</string>
-    <string name="lat">Latitud: </string>
-    <string name="lon">Longitud: </string>
+    <string name="lat">Latitud:\t</string>
+    <string name="lon">Longitud:\t</string>
     <string name="dis">Distancia: %d metros</string>
     <string name="error_datos">Error, no se han obtenido los datos</string>
     <string name="punto_introducido">"Sólo has introducido el punto"</string>
     <string name="listado">Listado</string>
     <string name="mapa">Mapa</string>
     <string name="consultar_mapa">Consultar Mapa</string>
+    <string name="error_no_datos">No hay datos con filtros introducidos</string>
 </resources>

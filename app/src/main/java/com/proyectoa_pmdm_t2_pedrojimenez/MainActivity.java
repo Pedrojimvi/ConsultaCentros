@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     TextView txtDis;
     FrameLayout frLay;
     FragmentManager fm;
+    double lat;
+    double lon;
+    int dis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
         btnCon.setOnClickListener(v -> {
             ListadoFragment lf = new ListadoFragment();
             cargarFragment(lf);
-            lf.actualizarListado(iniRf());
+            lf.actualizarListado(iniRf(), lat, lon, dis, compFilt());
         });
     }
 
@@ -69,21 +72,27 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
                 ListadoFragment lf = new ListadoFragment();
                 btnCon.setText(R.string.consultar_listado);
                 cargarFragment(lf);
+
                 btnCon.setOnClickListener(v -> {
-                    lf.actualizarListado(iniRf());
+                    lf.actualizarListado(iniRf(), lat, lon, dis, compFilt());
                 });
                 return super.onOptionsItemSelected(item);
             case R.id.mapa:
                 MapaFragment mp = new MapaFragment();
                 btnCon.setText(R.string.consultar_mapa);
                 cargarFragment(mp);
+
                 btnCon.setOnClickListener(v -> {
-                    mp.actualizarMapa(iniRf());
+                    mp.actualizarMapa(iniRf(), lat, lon, dis, compFilt());
                 });
                 return super.onOptionsItemSelected(item);
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean compFilt() {
+        return !txtLat.getText().toString().isBlank() && !txtLon.getText().toString().isBlank() && !txtDis.getText().toString().isBlank();
     }
 
     public APIRestService iniRf() {
@@ -107,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     }
 
     public void onAceptarXListener(Double lat, Double lon, int dis) {
+        this.lat = lat;
+        this.lon = lon;
+        this.dis = dis;
         txtLat.setText(getString(R.string.lat) + lat);
         txtLon.setText(getString(R.string.lon) + lon);
         txtDis.setText(String.format(getString(R.string.dis), dis));

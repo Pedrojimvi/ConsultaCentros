@@ -23,7 +23,7 @@ public MapaFragment() {
         super.onCreate(savedInstanceState);
     }
 
-    public void actualizarMapa(APIRestService ars) {
+    public void actualizarMapa(APIRestService ars, double lat, double lon, int dist, boolean filt) {
 
     }
 }
