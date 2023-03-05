@@ -68,7 +68,7 @@ public class DetalleActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Centro> call, Throwable t) {
-                Toast.makeText(DetalleActivity.this, "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetalleActivity.this, R.string.error_api, Toast.LENGTH_SHORT).show();
             }
         });
     }

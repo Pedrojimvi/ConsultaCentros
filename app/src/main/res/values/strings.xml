@@ -7,7 +7,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="aceptar">Aceptar</string>
     <string name="error_campo_vacio">Este campo no puede estar vacío</string>
-    <string name="buscador_de">Buscador de … de La Comunidad de Madrid</string>
+    <string name="buscador_de">Buscador de centros educativos de La Comunidad de Madrid</string>
     <string name="consultar_listado">Consultar Listado</string>
     <string name="numero_invalido">El número introducido sobrepasa los límites</string>
     <string name="lat">Latitud:\t</string>
@@ -19,4 +19,11 @@
     <string name="mapa">Mapa</string>
     <string name="consultar_mapa">Consultar Mapa</string>
     <string name="error_no_datos">No hay datos con filtros introducidos</string>
+    <string name="error_api">Error al conectar con la API</string>
+    <string name="nombre">Nombre:</string>
+    <string name="direccion">Dirección:</string>
+    <string name="codigo_postal">Código Postal:</string>
+    <string name="localidad">Localidad:</string>
+    <string name="descripcion">Descripción:</string>
+    <string name="label">Detalles del Centro Educativo</string>
 </resources>
