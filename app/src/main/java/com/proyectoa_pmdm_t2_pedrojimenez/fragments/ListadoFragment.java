@@ -32,7 +32,6 @@ public class ListadoFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     public static ListadoFragment newInstance() {
         ListadoFragment listFrag = new ListadoFragment();
         Bundle args = new Bundle();

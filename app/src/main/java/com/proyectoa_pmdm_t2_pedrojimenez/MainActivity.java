@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
             txtLat.setText("");
             txtLon.setText("");
             txtDis.setText("");
-            frLay.removeAllViews();
 
             FiltroDialogFragment dialog = new FiltroDialogFragment();
             dialog.show(getSupportFragmentManager(), null);
@@ -69,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.lista:
+                txtLat.setText("");
+                txtLon.setText("");
+                txtDis.setText("");
+
                 ListadoFragment lf = new ListadoFragment();
                 btnCon.setText(R.string.consultar_listado);
                 cargarFragment(lf);
@@ -78,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
                 });
                 return super.onOptionsItemSelected(item);
             case R.id.mapa:
+                txtLat.setText("");
+                txtLon.setText("");
+                txtDis.setText("");
+
                 MapaFragment mp = new MapaFragment();
                 btnCon.setText(R.string.consultar_mapa);
                 cargarFragment(mp);

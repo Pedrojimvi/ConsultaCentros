@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProyectoA_PMDM_T2_PedroJiménez</string>
+    <string name="app_name">Buscador Centros Educativos</string>
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
     <string name="distancia_en_metros">Distancia en metros</string>
