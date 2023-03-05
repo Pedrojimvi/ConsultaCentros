@@ -1,17 +1,21 @@
 package com.proyectoa_pmdm_t2_pedrojimenez;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.proyectoa_pmdm_t2_pedrojimenez.fragments.FiltroDialogFragment;
 import com.proyectoa_pmdm_t2_pedrojimenez.fragments.ListadoFragment;
+import com.proyectoa_pmdm_t2_pedrojimenez.fragments.MapaFragment;
 import com.proyectoa_pmdm_t2_pedrojimenez.fragments.OnXListener;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitUtils.APIRestService;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitUtils.RetrofitClient;
@@ -41,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
 
         fm = getSupportFragmentManager();
 
-        iniRf();
-
         btnSel.setOnClickListener(v -> {
             txtLat.setText("");
             txtLon.setText("");
@@ -50,21 +52,52 @@ public class MainActivity extends AppCompatActivity implements OnXListener {
             frLay.removeAllViews();
 
             FiltroDialogFragment dialog = new FiltroDialogFragment();
-            dialog.show(getSupportFragmentManager(), "FiltroDialogFragment");
+            dialog.show(getSupportFragmentManager(), null);
         });
 
         btnCon.setOnClickListener(v -> {
-            ListadoFragment listFrag = new ListadoFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frLay, listFrag);
-            ft.addToBackStack(null);
-            ft.commit();
+            ListadoFragment lf = new ListadoFragment();
+            cargarFragment(lf);
+            lf.actualizarListado(iniRf());
         });
     }
 
-    private void iniRf() {
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.lista:
+                ListadoFragment lf = new ListadoFragment();
+                btnCon.setText(R.string.consultar_listado);
+                cargarFragment(lf);
+                btnCon.setOnClickListener(v -> {
+                    lf.actualizarListado(iniRf());
+                });
+                return super.onOptionsItemSelected(item);
+            case R.id.mapa:
+                MapaFragment mp = new MapaFragment();
+                btnCon.setText(R.string.consultar_mapa);
+                cargarFragment(mp);
+                btnCon.setOnClickListener(v -> {
+                    mp.actualizarMapa(iniRf());
+                });
+                return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public APIRestService iniRf() {
         Retrofit rf = RetrofitClient.getClient(APIRestService.BASE_URL);
-        APIRestService apiRestServ = rf.create(APIRestService.class);
+        APIRestService ars = rf.create(APIRestService.class);
+
+        return ars;
+    }
+
+    private void cargarFragment(Fragment fr) {
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frLay, fr);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override

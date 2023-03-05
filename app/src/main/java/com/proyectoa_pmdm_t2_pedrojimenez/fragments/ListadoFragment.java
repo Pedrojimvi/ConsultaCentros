@@ -14,38 +14,27 @@ import com.proyectoa_pmdm_t2_pedrojimenez.R;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitData.Centro;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitData.Graph;
 import com.proyectoa_pmdm_t2_pedrojimenez.retrofitUtils.APIRestService;
-import com.proyectoa_pmdm_t2_pedrojimenez.retrofitUtils.RetrofitClient;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ListadoFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private RecyclerView rcV;
     private CentroAdapter adapter;
-    private ArrayList<Graph> centrosList;
+    private ArrayList<Graph> centrosList = new ArrayList<>();
     LinearLayoutManager lLM;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ListadoFragment() {
         // Required empty public constructor
     }
 
 
-    public static ListadoFragment newInstance(String param1, String param2) {
+    public static ListadoFragment newInstance() {
         ListadoFragment listFrag = new ListadoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         listFrag.setArguments(args);
         return listFrag;
     }
@@ -60,16 +49,17 @@ public class ListadoFragment extends Fragment {
         adapter = new CentroAdapter(centrosList);
         rcV.setAdapter(adapter);
 
-        // Inicializamos el Retrofit
-        Retrofit rF = RetrofitClient.getClient(APIRestService.BASE_URL);
-        APIRestService ars = rF.create(APIRestService.class);
+        return v;
+    }
+
+    public void actualizarListado(APIRestService ars){
         Call<Centro> call = ars.getData();
         call.enqueue(new Callback<Centro>() {
             @Override
             public void onResponse(Call<Centro> call, Response<Centro> response) {
                 if (response.isSuccessful()) {
-                    Centro centrosRes = response.body();
                     // Agregamos los datos al ArrayList con los centros
+                    Centro centrosRes = response.body();
                     centrosList.addAll(centrosRes.getGraph());
                     cargarRV(centrosList);
                 }
@@ -82,8 +72,6 @@ public class ListadoFragment extends Fragment {
                 Toast.makeText(getActivity(), R.string.error_datos, Toast.LENGTH_SHORT).show();
             }
         });
-
-        return v;
     }
 
     private void cargarRV(ArrayList<Graph> results) {

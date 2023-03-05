@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/listado"
+        android:id="@+id/lista"/>
 
-    <item android:title="Listado" />
-    <item android:title="Mapa" />
+    <item android:title="@string/mapa"
+        android:id="@+id/mapa"/>
 </menu>

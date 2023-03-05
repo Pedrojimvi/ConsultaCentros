@@ -15,4 +15,7 @@
     <string name="dis">Distancia: %d metros</string>
     <string name="error_datos">Error, no se han obtenido los datos</string>
     <string name="punto_introducido">"Sólo has introducido el punto"</string>
+    <string name="listado">Listado</string>
+    <string name="mapa">Mapa</string>
+    <string name="consultar_mapa">Consultar Mapa</string>
 </resources>
